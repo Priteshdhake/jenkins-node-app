@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Code') {
+            steps {
+                git 'https://github.com/YOUR_GITHUB_USERNAME/jenkins-node-app.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Run Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t jenkins-node-app .'
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker run -d -p 3000:3000 --name jenkins-node-app-container jenkins-node-app || true'
+            }
+        }
+    }
+}
+
