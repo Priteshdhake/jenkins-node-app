@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'node18'
+    }
+
     stages {
 
         stage('Clone Code') {
@@ -11,15 +15,14 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies & Test') {
-            agent {
-                docker {
-                    image 'node:18'
-                    args '-u root:root'
-                }
-            }
+        stage('Install Dependencies') {
             steps {
                 sh 'npm install'
+            }
+        }
+
+        stage('Run Test') {
+            steps {
                 sh 'npm test'
             }
         }
