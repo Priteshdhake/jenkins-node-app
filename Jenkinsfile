@@ -11,14 +11,15 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Dependencies & Test') {
+            agent {
+                docker {
+                    image 'node:18'
+                    args '-u root:root'
+                }
+            }
             steps {
                 sh 'npm install'
-            }
-        }
-
-        stage('Run Test') {
-            steps {
                 sh 'npm test'
             }
         }
@@ -35,6 +36,5 @@ pipeline {
                 sh 'docker run -d -p 3000:3000 --name jenkins-node-app-container jenkins-node-app'
             }
         }
-
-    }  // closes stages
-}      // closes pipeline
+    }
+}
