@@ -7,7 +7,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/Priteshdhake/jenkins-node-app.git',
-                   /* credentialsId: 'github-token'*/
+                    credentialsId: 'github-token'
             }
         }
 
@@ -35,5 +35,6 @@ pipeline {
                 sh 'docker run -d -p 3000:3000 --name jenkins-node-app-container jenkins-node-app'
             }
         }
-    }
-}
+
+    }  // closes stages
+}      // closes pipeline
