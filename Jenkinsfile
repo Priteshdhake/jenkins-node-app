@@ -7,7 +7,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/Priteshdhake/jenkins-node-app.git',
-                    credentialsId: 'github-token'
+                    credentialsId: 'gitHubCred'
             }
         }
 
